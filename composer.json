@@ -1,0 +1,19 @@
+{
+    "name": "manta/ph-pcms",
+    "type": "project",
+    "authors": [{
+        "name": "Mantas Masalis",
+        "email": "33566613+masalism@users.noreply.github.com"
+    }],
+    "require": {
+        "doctrine/orm": "^2.7"
+    },
+    "autoload": {
+        "files": [
+            "src/models/Page.php",
+            "src/models/User.php",
+            "src/admin/login.php"
+        ]
+    }
+
+}
