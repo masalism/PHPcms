@@ -1,92 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php require_once "../includes/header.php" ?>
+<?php require_once "../../bootstrap.php"; ?>
+<?php require_once "functions.php"; ?>
+<?php require_once "../helpers/sessionHelper.php"; ?>
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-</head>
+session_start();
 
-<body>
-    <?php require_once "../../bootstrap.php"; ?>
-    <?php require_once "functions.php"; ?>
-    <?php
+if (!$_SESSION['logged_in']) {
+    header("Location: " . DIRADMIN . "login.php");
+}
 
-    session_start();
+if (isset($_GET['logout'])) {
+    logOut();
+}
 
-    if (!$_SESSION['logged_in']) {
-        header("Location: " . DIRADMIN . "login.php");
-    }
+$pages = $entityManager->getRepository("Page")->findAll();
+?>
 
-    if (isset($_GET['logout'])) {
-        session_start();
-        unset($_SESSION['username']);
-        unset($_SESSION['password']);
-        unset($_SESSION['logged_in']);
-        header("Location: " . DIRADMIN . "login.php");
-    }
+<div class="bg-light">
+    <div class="container py-3 d-flex justify-content-between align-items-center">
+        <div >
+            <h1 class="display-6 mr-3">DASHBOARD</h1>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-success mr-3" href="<?php echo DIR; ?>"">Site</a>
+            <a class=" btn btn-danger" href="?logout"">Log Out</a>
+        </div>
+    </div>
+</div>
+    
 
-    $pages = $entityManager->getRepository("Page")->findAll();
-    ?>
-
-<button>
-        <a href="?logout"">Log Out</a>
-    </button>
-
-    <button>
-        <a href="?new"">New Page</a>
-    </button>
-
-    <table>
-        <thead>
+<div class=" container">
+    <table class="table mt-5">
+        <thead class="thead-dark">
             <tr>
                 <th>Page</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($pages as $page) : ?>
-                <tr>
-                    <td><?php echo $page->getTitle(); ?></td>
-                    <td>
-                        <a href=" <?php echo DIRADMIN . "admin.php?update=" . $page->getId(); ?>">EDIT</a>
-        <a href="<?php echo DIRADMIN . "admin.php?delete=" . $page->getId(); ?>">DELETE</a>
-        </td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-    </table>
+                </thead>
+                <tbody>
+                        <?php foreach ($pages as $page) : ?>
+                            <tr>
+                                <td><?php echo $page->getTitle(); ?></td>
+                                <td>
+                                    <a href=" <?php echo DIRADMIN . "admin.php?update=" . $page->getId(); ?>">EDIT</a>
+                                    <a href="<?php echo DIRADMIN . "admin.php?delete=" . $page->getId(); ?>">DELETE</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <a class=" btn btn-primary mb-3" href=" ?new"">New Page</a>
 
-    <?php if (isset($_GET["update"])) : ?>
-        <?php $page = $entityManager->find("Page", $_GET["update"]); ?>
-        <form action="" method="POST">
-            <input type="hidden" name="update_id" value="<?php echo $page->getId(); ?>">
-            <div class="form-group">
-                <input class="form-control" type="text" name="title" value="<?php echo $page->getTitle(); ?>">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" type="text" name="content" rows="3"><?php echo $page->getContent(); ?></textarea>
-            </div>
-            <div class="form-group">
-                <input type="submit">
-            </div>
-        </form>
-    <?php endif; ?>
 
-    <?php if (isset($_GET["new"])) : ?>
-        <form action="" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="text" name="title" placeholder="Page title">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" type="text" name="content" placeholder="Page Content" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <input type="submit">
-            </div>
-        </form>
-    <?php endif; ?>
+        <?php if (isset($_GET["update"])) : ?>
+            <?php $page = $entityManager->find("Page", $_GET["update"]); ?>
+            <form action="" method=" POST">
+                    <input type="hidden" name="update_id" value="<?php echo $page->getId(); ?>">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="title" value="<?php echo $page->getTitle(); ?>">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" name="content" rows="3"><?php echo $page->getContent(); ?></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit">
+                    </div>
+                    </form>
+                <?php endif; ?>
 
-</body>
-
-</html>
+                <?php if (isset($_GET["new"])) : ?>
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="title" placeholder="Page title">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" type="text" name="content" placeholder="Page Content"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit">
+                        </div>
+                    </form>
+                <?php endif; ?>
+        </div>
+        <?php require_once "../includes/footer.php" ?>

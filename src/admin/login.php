@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Login</title>
-</head>
-
-<body>
+<?php require_once '../includes/header.php'; ?>
+<?php require_once '../../bootstrap.php'; ?>
+<?php require_once '../includes/navbar.php'; ?>
 
     <?php
-    require_once '../../bootstrap.php';
 
     session_start();
-    
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_REQUEST['login'])) {
@@ -50,6 +39,4 @@
             </form>
         </div>
     </div>
-</body>
-
-</html>
+    <?php require_once '../includes/footer.php'; ?>

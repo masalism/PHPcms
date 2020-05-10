@@ -1,91 +1,30 @@
+<?php require_once 'bootstrap.php'; ?>
+<?php require_once 'src/includes/header.php'; ?>
+<?php require_once 'src/includes/navbar.php'; ?>
 <?php
-require_once 'bootstrap.php';
-
-$pages = $entityManager->getRepository('Page')->findAll();
-
+if (isset($_GET['logout'])) {
+    logOut();
+}
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <?php foreach ($pages as $page) : ?>
-        <a href="<?php echo DIR . '?page=' . $page->getId(); ?>" class=""> <? echo $page->getTitle(); ?> </a>
-
-    <?php endforeach; ?>
-    <a href="<?php echo DIR . 'src/admin/admin.php' ?>">Admin</a>
-
-    <div>
+<div class="container">
+    <?php if (empty($pages)) : ?>
+        <h1 class="text-center display-3 text-danger mt-4"><?php echo "No pages found. Please create new page!" ?></h1>
+    <?php elseif (!isset($_GET['page'])) : ?>
         <?php
-        if (empty($pages)) {
-            echo "No pages found";
-        } else if (isset($_GET['page'])) {
-            $id = $_GET['page'];
-            $page = $entityManager->find('Page', $id);
-            echo $page->getTitle();
-            echo $page->getContent();
-        } else {
-            $id = $pages[0]->getId();
-            $pages = $entityManager->find('Page', $id);
-            echo $pages->getTitle();
-            echo $pages->getContent();
-        }
-
-        // $id = $_GET['page'];
-        // if (isset($_GET['page'])) {
-        //     $page = $entityManager->find('Page', $id);
-        //     echo $page->getTitle();
-        //     echo $page->getContent();
-        // }
-
-        // echo $id;
-
-        // if (isset($_GET['page']) != $id) {
-        //     $pageId = $_GET['page'];
-        //     echo $pageId;
-        //     $page = $entityManager->find('Page', $pageId);
-        //     echo $pages->getTitle();
-        //     echo $pages->getContent();
-        //     header("Location: " . DIR . "?page=" . $pageId);
-
-        // }
-
-
-
-        // if (!isset($_GET['page'])) {
-        //     $id = $_GET['page'];
-        //     $pages = $entityManager->find('Page', $id);
-        //     echo $pages->getTitle();
-        //     echo $pages->getContent();
-        //     header("Location: " . DIR . "?page=" . $id);
-        // }
-        // 
-
-        // if (empty($pages)) {
-        //     header("Location: " . DIR);
-        //     echo "No pages found";
-        // } else {
-        //     $pages = $entityManager->find('Page', $id[0]);
-        //     echo $pages->getTitle();
-        //     echo $pages->getContent();
-        //     header("Location: " . DIR . "?page=" . $pages->id[0]);
-
-        // $pages = $entityManager->find('Page', $id);
-        // echo $pages->getTitle();
-        // echo $pages->getContent();
-        // }
+        $id = $pages[0]->getId();
+        $pages = $entityManager->find('Page', $id);
         ?>
-    </div>
-    <?php
-    // $pages = $entityManager->find('Page', $pages->getId());
-    // echo $pages->getContent();
-    ?>
+        <h1 class="text-center display-3 text-success text-bold mt-4"><?php echo $pages->getTitle(); ?></h1>
+        <p class="text-muted text-center p-5"><?php echo $pages->getContent(); ?></p>
+    <?php else : ?>
+        <?php
+        $id = $_GET['page'];
+        $pages = $entityManager->find('Page', $id);
+        ?>
+        <h1 class="text-center display-3 text-success text-bold mt-4"><?php echo $pages->getTitle(); ?></h1>
+        <p class="text-muted text-center p-5"><?php echo $pages->getContent(); ?></p>
+    <?php endif;  ?>
+</div>
 
-</body>
-
-</html>
+<?php require_once 'src/includes/footer.php'; ?>

@@ -1,20 +1,10 @@
 <?php
-define('DBHOST', 'localhost');
-define('DBUSER', 'root');
-define('DBPASS', 'mysql');
-define('DBNAME', 'minicms');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASSWORD', 'mysql');
+define('DB_NAME', 'cms');
 
-// make a connection to mysql here
-
-
-// define site path
 define('DIR', 'http://localhost/PHPcms/');
-
-// define admin site path
 define('DIRADMIN','http://localhost/PHPcms/src/admin/');
+define('SITENAME', 'My CMS');
 
-// define site title for top of the browser
-define('SITETITLE', 'Mini CMS');
-
-//define include checker
-define('included', 1);
