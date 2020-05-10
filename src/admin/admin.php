@@ -11,8 +11,27 @@
     <?php require_once "../../bootstrap.php"; ?>
     <?php require_once "functions.php"; ?>
     <?php
+
+    session_start();
+
+    if (!$_SESSION['logged_in']) {
+        header("Location: " . DIRADMIN . "login.php");
+    }
+
+    if (isset($_GET['logout'])) {
+        session_start();
+        unset($_SESSION['username']);
+        unset($_SESSION['password']);
+        unset($_SESSION['logged_in']);
+        header("Location: " . DIRADMIN . "login.php");
+    }
+
     $pages = $entityManager->getRepository("Page")->findAll();
     ?>
+
+<button>
+        <a href="?logout"">Log Out</a>
+    </button>
 
     <button>
         <a href="?new"">New Page</a>
@@ -31,11 +50,11 @@
                     <td><?php echo $page->getTitle(); ?></td>
                     <td>
                         <a href=" <?php echo DIRADMIN . "admin.php?update=" . $page->getId(); ?>">EDIT</a>
-                        <a href="<?php echo DIRADMIN . "admin.php?delete=" . $page->getId(); ?>">DELETE</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
+        <a href="<?php echo DIRADMIN . "admin.php?delete=" . $page->getId(); ?>">DELETE</a>
+        </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
     </table>
 
     <?php if (isset($_GET["update"])) : ?>

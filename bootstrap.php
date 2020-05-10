@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 require_once "vendor/autoload.php";
 require_once "src/config/config.php";
 
-session_start();
+
 
 $isDevMode = true;
 $proxyDir = null;
