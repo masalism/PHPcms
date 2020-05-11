@@ -15,8 +15,6 @@ if (isset($_GET['logout'])) {
     logOut();
 }
 
-
-
 $pages = $entityManager->getRepository("Page")->findAll();
 ?>
 
@@ -60,7 +58,7 @@ $pages = $entityManager->getRepository("Page")->findAll();
         <?php if (isset($_GET["update"])) : ?>
             <?php $page = $entityManager->find('Page', $_GET['update']); ?>
 
-            <form action="" method=" POST">
+            <form action="" method="POST">
                     <input type="hidden" name="update_id" value="<?php echo $page->getId(); ?>">
                     <div class="form-group">
                         <input class="form-control" type="text" name="title" value="<?php echo $page->getTitle(); ?>">
