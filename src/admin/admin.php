@@ -1,7 +1,8 @@
 <?php require_once "../includes/header.php" ?>
 <?php require_once "../../bootstrap.php"; ?>
-<?php require_once "functions.php"; ?>
 <?php require_once "../helpers/sessionHelper.php"; ?>
+<!-- <?php require_once "./functions.php"; ?> -->
+
 <?php
 
 session_start();
@@ -13,6 +14,8 @@ if (!$_SESSION['logged_in']) {
 if (isset($_GET['logout'])) {
     logOut();
 }
+
+
 
 $pages = $entityManager->getRepository("Page")->findAll();
 ?>
@@ -52,9 +55,11 @@ $pages = $entityManager->getRepository("Page")->findAll();
                 </table>
                 <a class=" btn btn-primary mb-3" href=" ?new"">New Page</a>
 
+               
 
         <?php if (isset($_GET["update"])) : ?>
-            <?php $page = $entityManager->find("Page", $_GET["update"]); ?>
+            <?php $page = $entityManager->find('Page', $_GET['update']); ?>
+
             <form action="" method=" POST">
                     <input type="hidden" name="update_id" value="<?php echo $page->getId(); ?>">
                     <div class="form-group">
@@ -64,12 +69,12 @@ $pages = $entityManager->getRepository("Page")->findAll();
                         <textarea class="form-control" type="text" name="content" rows="3"><?php echo $page->getContent(); ?></textarea>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-info" type="submit">
+                        <input class="btn btn-info" type="submit" name="update">
                     </div>
                     </form>
                 <?php endif; ?>
 
-                <?php if (isset($_GET["new"])) : ?>
+                <?php if (isset($_GET['new'])) : ?>
                     <form action="" method="POST">
                         <div class="form-group">
                             <input class="form-control" type="text" name="title" placeholder="Page title">
@@ -78,7 +83,7 @@ $pages = $entityManager->getRepository("Page")->findAll();
                             <textarea class="form-control" type="text" name="content" placeholder="Page Content"></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-success" type="submit">
+                            <input class="btn btn-success" type="submit" name="update">
                         </div>
                     </form>
                 <?php endif; ?>
