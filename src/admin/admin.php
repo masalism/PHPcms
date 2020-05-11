@@ -81,7 +81,7 @@ $pages = $entityManager->getRepository("Page")->findAll();
                             <textarea class="form-control" type="text" name="content" placeholder="Page Content"></textarea>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-success" type="submit" name="update">
+                            <input class="btn btn-success" type="submit" name="new">
                         </div>
                     </form>
                 <?php endif; ?>
