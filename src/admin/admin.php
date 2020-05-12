@@ -1,7 +1,7 @@
 <?php require_once "../includes/header.php" ?>
 <?php require_once "../../bootstrap.php"; ?>
 <?php require_once "../helpers/sessionHelper.php"; ?>
-<!-- <?php require_once "./functions.php"; ?> -->
+<?php require_once "./functions.php"; ?>
 
 <?php
 
